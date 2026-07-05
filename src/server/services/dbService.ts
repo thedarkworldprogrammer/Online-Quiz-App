@@ -268,6 +268,14 @@ export const dbService = {
     return db.getAuditLogs();
   },
 
+  async deleteAuditLogs(ids: string[]): Promise<void> {
+    if (useMongo()) {
+      await (AuditLogModel as any).deleteMany({ id: { $in: ids } });
+      return;
+    }
+    db.deleteAuditLogs(ids);
+  },
+
   async addAuditLog(log: AuditLog): Promise<AuditLog> {
     if (useMongo()) {
       const created = await AuditLogModel.create(log);

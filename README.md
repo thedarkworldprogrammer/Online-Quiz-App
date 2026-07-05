@@ -1,20 +1,11 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+Modify the assessment workspace #eduassess-app-root to include a 'Shuffle Questions' toggle in the header, allowing students to randomize their question order before starting an attempt.
 
-# Run and deploy your AI Studio app
+Update the quiz initiation logic in App.tsx to verify the student's remaining attempt count and pass/fail status immediately upon opening the quiz attempt dialog, ensuring the 'Retry' button state is accurately synchronized with the server's latest quiz metadata.
 
-This contains everything you need to run your app locally.
+Implement a visual status indicator in the Audit Log table that highlights logs with a 'WARNING' or 'ERROR' action severity in a different color to improve scanability for admins.
 
-View your app in AI Studio: https://ai.studio/apps/806fd450-e2ed-4e78-b183-404ed0100935
+Add a global 'ConfirmationDialog' component for destructive actions like suspending users or deleting assignments, and integrate it into the existing buttons to prevent accidental clicks.
 
-## Run Locally
+CSS selector: #eduassess-app-root. Within the assessment result card, add a small 'lock' icon with a tooltip that displays 'Attempt locked for review' if the attempt has been already evaluated or if the quiz duration has passed.
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+CSS selector: #eduassess-app-root. Add a visual status indicator to assessment cards that shows a 'Urgent' red border animation if the current time is within 30 minutes of the assessment's completion window, using the quiz configuration data.

@@ -533,6 +533,12 @@ class Database {
     return this.data.auditLogs || [];
   }
 
+  public deleteAuditLogs(ids: string[]): void {
+    if (!this.data.auditLogs) return;
+    this.data.auditLogs = this.data.auditLogs.filter(log => !ids.includes(log.id));
+    this.save();
+  }
+
   public addAuditLog(log: Omit<AuditLog, 'id' | 'timestamp'> & { id?: string; timestamp?: string }) {
     if (!this.data.auditLogs) {
       this.data.auditLogs = [];
