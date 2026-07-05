@@ -1,0 +1,6 @@
+{
+  "name": "EduAssess AI",
+  "description": "An enterprise-grade, AI-powered Assessment & Learning Management System (LMS) for schools, colleges, and educators.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

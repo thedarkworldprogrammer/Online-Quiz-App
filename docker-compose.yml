@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:6.0
+    container_name: eduassess-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: eduassess
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+  # Node.js Express + React Web Application Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eduassess-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # Connect to the MongoDB container using the service name inside the bridge network
+      - MONGODB_URI=mongodb://admin:password123@mongodb:27017/eduassess?authSource=admin
+      - JWT_SECRET=eduassess-super-secret-production-key-2026
+      # Add your Gemini API Key if using server-side grading
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
